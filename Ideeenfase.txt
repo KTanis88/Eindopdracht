@@ -1,1 +1,2 @@
-Voor mijn
+Voor mijn eindopdracht in Progamming fundamentals ben ik tot het idee gekomen om een app te
+ontwikkelen waar de technische commisie binnen mijn voetbalclub gebruik van kan maken.
