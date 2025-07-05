@@ -17,3 +17,18 @@ def register_attendance(schedules_db) :
     schedules_db[datum]['aanwezigheid'] [speler] = aanwezig
     print(f"Aanwezigheid voor {speler} op {datum} geregistreerd a;s {'aanwezig' if aanwezig else 'afwezig'}.")
 
+def register_perfomance(schedules_db):
+    datum = input("Datum (dd-mm-jjjj):")
+    type_sessie = input("Type (training/wedstrijd):").lower()
+    speler = input("Naam speler:")
+    prestatie = input("Prestatie (bijv. cijfer of korte beoordeling):")
+
+    if datum not in schedules_db:
+        schedules_db[datum] = {}
+    if type_sessie not in schedules_db[datum]:
+        schedules_db[datum][type_sessie] = {"prestaties": {}}
+    if "prestaties" not in schedules_db[datum][type_sessie]:
+        schedules_db[datum][type_sessie]["prestaties"] = {}
+
+    schedules_db[datum][type_sessie]["prestaties"][speler] = prestatie
+    print(f"Prestatie voor {speler} op {datum} ({type_sessie}) geregistreerd als: {prestatie}")

@@ -1,5 +1,5 @@
 from storage import load_data, save_data
-from users import login
+from users import login, create_user, save_users
 from players import add_player
 from scouting import add_scouting_report, view_scouting_reports
 from trainers import add_training_schedule, register_attendance
@@ -23,6 +23,7 @@ def main() :
         return
     while True:
         print("\nHoofdmenu:")
+        print("0. Nieuwe gebruiker aanmaken")
         print("1. Speler toevoegen")
         print("2. Scoutingsrapport toevoegen")
         print("3. Rapporten bekijken")
@@ -34,7 +35,10 @@ def main() :
         print('9. Stoppen')
 
         keuze = input("Maak een keuze: ")
-        if keuze == "1":
+        if keuze == "0":
+            create_user(users_db)
+            save_users(users_db)
+        elif keuze == "1":
             add_player(players_db)
         elif keuze == "2":
             add_scouting_report(report_db)
