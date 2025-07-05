@@ -4,6 +4,7 @@ from players import add_player
 from scouting import add_scouting_report, view_scouting_reports
 from trainers import add_training_schedule, register_attendance
 from technical import add_material
+from trainingsschema.loader import get_schema_path, open_schema
 
 report_db = load_data('rapporten.json')
 save_data(report_db, 'rapporten.json')
@@ -21,13 +22,17 @@ def main() :
     if not role:
         return
     while True:
+        print("\nHoofdmenu:")
         print("1. Speler toevoegen")
         print("2. Scoutingsrapport toevoegen")
         print("3. Rapporten bekijken")
         print("4. Trainingsschema toevoegen")
         print("5. Aanwezigheid registeren")
         print("6. Materiaal toevoegen")
-        print("7. Stoppen")
+        print("7. Prestatie registreren")
+        print('8. Trainingsschema openen')
+        print('9. Stoppen')
+
         keuze = input("Maak een keuze: ")
         if keuze == "1":
             add_player(players_db)
@@ -45,6 +50,10 @@ def main() :
         elif keuze == "6":
             add_material(materials_db)
         elif keuze == "7":
+            register_performance(schedules_db)
+        elif keuze == "8":
+            toon_trainingsschema()
+        elif keuze == "9":
             print("Programma gestopt.")
             break
         else:
