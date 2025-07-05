@@ -1,2 +1,15 @@
 Voor mijn eindopdracht in Progamming fundamentals ben ik tot het idee gekomen om een app te
-ontwikkelen waar de technische commisie binnen mijn voetbalclub gebruik van kan maken.
+ontwikkelen waar de technische zaken, scouting en trainers binnen mijn voetbalclub vrc gebruik van kunnen maken.
+Eerst ben ik gaan nadenken wat er in de app moet komen en daarna hoe ik dit moet bouwen in pycharm.
+De app moet een beveiligde omgeving zijn ,omdat er teams en de daarbij horende spelersinfo worden gebruikt.
+De info hiervoor haal ik uit een api die ik via sportslink verkrijg. Vrc verleent mij hiervoor toestemming om een client id te ontvangen.
+De app moet als functionaliteit bevatten dat ik er een volledig scoutingsrapport op staat die ingevuld kan worden door alle gebruikers,
+Niet alle gebruikers mogen zien wat er ingevuld word. De gebruiker die het formulier invult kan het zien plus de tc en ho.
+Verder moet statistieken van de teams en hun spelers per wedstrijd/training ingevuld kunnen worden door de trainers en waarnodig aangevuld door de api van sportslink.
+De rapporten moeten downloadbaar zijn als excel-bestand.
+Ook wil ik de indelingen voor de teams voor het volgende jaar kunnen maken. Dit moet ook downloadbaar zijn als excel bestand.
+Er worden cijfers gegeven op basis van het scoutingssysteem. De app moet een automatische koppeling kunnen maken van de scores van alle spelers in een leeftijdsgroep.
+Die scores moeten aan elkaar gekoppeld worden en een soort ranglijst van gemaakt worden.
+Bijvoorbeeld: Als ik in de jo11 op zoek ben naar spelers met de kwaliteit mentaliteit, moet de app alle scores van de spelers bij het kopje mentaliteit kunnen koppelen
+en daaruit een ranglijst kunnen maken met alle spelers en hun scores van de beste naar de minst scorende op dat gebied.
+
