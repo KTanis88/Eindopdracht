@@ -1,3 +1,4 @@
+from database import (fetch_teams, fetch_players_from_sportslink, sync_teams_with_db, sync_players_with_db, log_wijzigingen)
 from storage import load_data, save_data
 from users import (load_users, save_users, login, create_user, change_password, delete_user, reset_password)
 from roles import role_permissions, mag_toegang
@@ -7,12 +8,14 @@ from trainers import add_training_schedule, register_attendance
 from technical import add_material
 from trainingsschema.loader import get_schema_path, open_schema
 
+
+
 report_db = load_data('rapporten.json')
 save_data(report_db, 'rapporten.json')
 
 users_db = load_users()
-players_db = {}
-report_db = {}
+players_db = load_data('players.json')
+teams_db = load_data('teams.json')
 schedules_db = {}
 materials_db = {}
 
@@ -52,6 +55,19 @@ def gebruikersmenu(gebruiker, users_db) :
             add_material(materials_db)
         elif actie == "scoutingsverslagen":
            add_scouting_report(report_db)
+        elif actie == "import_sportslink":
+            print("Start Sportslink synchronisatie...")
+            sportslink_teams = fetch_teams()
+            wijzigingen_teams = sync_teams_with_db(sportslink_teams, teams_db, save_data, 'teams.json')
+            if wijzigingen_teams:
+                log_wijzigingen(wijzigingen_teams, "sync_log.txt")
+            for team in sportslink_teams:
+                team_id = team["id"]
+                sportslink_players = fetch_players_from_sportslink(team_id)
+                wijzigingen_spelers = sync_players_with_db(sportslink_players, players_db, save_data,'players.json')
+                if wijzigingen_spelers:
+                    log_wijzigingen(wijzigingen_spelers, "sync_log.txt")
+            print("Sportslink synchronisatie voltooid.")
         elif actie == "change_password":
             change_password(users_db, gebruiker["username"])
             save_users(users_db)
@@ -99,6 +115,10 @@ def toon_menu(gebruiker):
         menu.append(f"{nummer}. Scoutingsverslagen")
         mapping[str(nummer)] = "scoutingsverslagen"
         nummer += 1
+
+    menu.append(f"{nummer}. Importeer teams en spelers uit Sportslink")
+    mapping[str(nummer)] = "import_sportslink"
+    nummer += 1
 
     menu.append(f"{nummer}. Wachtwoord wijzigen")
     mapping[str(nummer)] = "change_password"
