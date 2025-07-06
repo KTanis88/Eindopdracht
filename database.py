@@ -5,7 +5,7 @@ api_key = "jouw_api_sleutel"
 
 def fetch_teams():
     headers = {"Authorization": f"Bearer {api_key}"}
-    response = requests.get(sportslink_api_url, headers=headers)
+    response = requests.get(sportslink_api_url, headers=headers, timeout=10)
     if response.status_code== 200:
         return response.json()
     else:
@@ -49,7 +49,7 @@ def sync_teams_with_db(sportslink_teams, local_db, save_func, filename):
 def fetch_players_from_sportslink(team_id):
     url = f"https://api.sportslink.com/v1/teams/{team_id}/players"
     headers = {"Authorization": f"Bearer {api_key}"}
-    response = requests.get(url, headers=headers)
+    response = requests.get(url, headers=headers, timeout=10)
     if response.status_code == 200:
         return response.json()
     else:

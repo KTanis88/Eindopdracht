@@ -1,5 +1,6 @@
 from database import (fetch_teams, fetch_players_from_sportslink, sync_teams_with_db, sync_players_with_db, log_wijzigingen)
 from storage import load_data, save_data
+from matches import (fetch_matches_from_sportslink, fetch_schedule_from_sportslink,)
 from users import (load_users, save_users, login, create_user, change_password, delete_user, reset_password)
 from roles import role_permissions, mag_toegang
 from players import add_player
