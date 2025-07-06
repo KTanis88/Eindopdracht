@@ -1,6 +1,6 @@
 from database import (fetch_teams, fetch_players_from_sportslink, sync_teams_with_db, sync_players_with_db, log_wijzigingen)
 from storage import load_data, save_data
-from matches import (fetch_matches_from_sportslink, fetch_schedule_from_sportslink,)
+from matches import (fetch_matches_from_sportslink, fetch_schedule_from_sportslink, sync_matches_with_db, sync_schedule_with_db)
 from users import (load_users, save_users, login, create_user, change_password, delete_user, reset_password)
 from roles import role_permissions, mag_toegang
 from players import add_player
@@ -17,9 +17,9 @@ save_data(report_db, 'rapporten.json')
 users_db = load_users()
 players_db = load_data('players.json')
 teams_db = load_data('teams.json')
-schedules_db = {}
+schedules_db = load_data('schedules.json')
 materials_db = {}
-
+matches_db = load_data('matches.json')
 
 def main() :
     users_db = load_users()
@@ -61,13 +61,23 @@ def gebruikersmenu(gebruiker, users_db) :
             sportslink_teams = fetch_teams()
             wijzigingen_teams = sync_teams_with_db(sportslink_teams, teams_db, save_data, 'teams.json')
             if wijzigingen_teams:
-                log_wijzigingen(wijzigingen_teams, "sync_log.txt")
+                log_wijzigingen(wijzigingen_teams, "logs", prefix="teams")
             for team in sportslink_teams:
-                team_id = team["id"]
+                team_id = team.get("id")
+                if not team_id:
+                    continue
                 sportslink_players = fetch_players_from_sportslink(team_id)
                 wijzigingen_spelers = sync_players_with_db(sportslink_players, players_db, save_data,'players.json')
                 if wijzigingen_spelers:
-                    log_wijzigingen(wijzigingen_spelers, "sync_log.txt")
+                    log_wijzigingen(wijzigingen_spelers, "logs", prefix="spelers")
+                sportslink_matches = fetch_matches_from_sportslink(team_id)
+                wijzigingen_matches = sync_matches_with_db(sportslink_matches, matches_db, save_data, 'matches.json')
+                if wijzigingen_matches:
+                    log_wijzigingen(wijzigingen_matches, "logs", prefix="wedstrijden")
+                sportslink_schedule = fetch_schedule_from_sportslink(team_id)
+                wijzigingen_schedule = sync_schedule_from_sportslink(sportslink_schedule, schedules_db, save_data, "schedules.json")
+                if wijzigingen_schedule:
+                    log_wijzigingen(wijzigingen_schedule, "logs", prefix="schema's")
             print("Sportslink synchronisatie voltooid.")
         elif actie == "change_password":
             change_password(users_db, gebruiker["username"])

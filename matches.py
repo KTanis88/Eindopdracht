@@ -75,6 +75,41 @@ def sync_matches_with_db(sportslink_matches, local_db, save_func, filename):
         print("Geen wijzigingen tijdens synchronisatie (wedstrijden)")
     return wijzigingen
 
+
+def sync_schedule_with_db(sportslink_schedule, local_db, save_func, filename):
+    """
+    Synchroniseert het speelschema van Sportslink met de lokale database.
+
+    :param sportslink_schedule (list): Lijst met schema-items van Sportslink.
+    :param local_db (dict): Lokale database van schema's (id -> dict).
+    :param save_func (callable): Functie om de lokale database op te slaan.
+    :param filename (str): Naam van het bestand waarin de database wordt opgeslagen.
+
+    :return: list: Een lijst van tuples met het type wijziging en de omschrijving
+    """
+    sportslink_dict = {item.get("id"): item for item in sportslink_schedule if item.get("id")}
+    wijzigingen = []
+    for item_id, item_data in sportslink_dict.items():
+        if item_id not in local_db:
+            wijzigingen.append(("toegevoegd", f"Nieuw schema-item toegevoegd: {item_data.get('omschrijving', item_data.get('opponent', 'onbekend'))}"))
+        elif local_db[item_id] != item_data:
+            wijzigingen.append(("bijgewerkt", f"Schema-item bijgewerkt: {item_data.get('omschrijving', item_data.get('opponent', 'onbekend'))}"))
+        local_db[item_id] = item_data
+    to_remove = [item_id for item_id in local_db if item_id not in sportslink_dict]
+    for item_id in to_remove:
+         omschrijving = local_db[item_id].get('omschrijving', local_db[item_id].get('opponent', 'onbekend'))
+         wijzigingen.append(("verwijderd", f"Schema-item verwijderd: {omschrijving}"))
+         del local_db[item_id]
+    save_func(local_db, filename)
+    if wijzigingen:
+        print("Wijzigingen tijdens synchronisatie (schema):")
+        for typ, w in wijzigingen:
+                print(f"- [{typ}] {w}")
+    else:
+            print("Geen wijzingen tijdens synchronisatie (schema)")
+    return wijzigingen
+
+
 def log_wijzigingen(wijzigingen, logmap):
     """
     Logt alle wijzigingen naar een CSV-bestand in de opgegeven map met tijdstempel.
