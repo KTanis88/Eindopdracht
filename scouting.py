@@ -7,7 +7,7 @@ def add_scouting_report(report_db) :
     if not beoordeling:
         print("Beoordeling mag niet leeg zijn.")
         return
-    rapport = input("Observaties:").strip()
+    rapport = input("Observaties: ").strip()
     if not rapport:
         print("Observaties mogen niet leeg zijn.")
         return
@@ -29,5 +29,50 @@ def view_scouting_reports(report_db) :
     else:
         print("Geen rapporten gevonden voor deze speler.")
 
+def add_scouting1_report(report_db):
+    speler = input("Naam speler:").strip()
+    if not speler:
+        print("Naam mag niet leeg zijn.")
+        return
+    mentaliteit = input("Score mentaliteit (1-10): ").strip()
+    techniek = input("Score techniek (1-10): ").strip()
+    beoordeling = input("Beoordeling algemeen: ").strip()
+    rapport = input("Observaties: ").strip()
 
+    rapport_dict = {"mentaliteit": mentaliteit, "techniek": techniek, "beoordeling": beoordeling, "rapport": rapport}
+
+    if speler not in report_db:
+        report_db[speler] = []
+    report_db[speler].append(rapport_dict)
+    print("Scoutingsrapport toegevoegd.")
+
+def ranglijst_mentaliteit(report_db):
+    scores = []
+    for speler, rapporten in report_db.items():
+        for rapport in rapporten:
+            if 'mentaliteit' in rapport:
+                try:
+                    score = int(rapport["mentaliteit"])
+                    scores.append((speler, score))
+                except ValueError:
+                    continue
+    scores.sort(key=lambda x: x[1], reverse=True)
+    print("Ranglijst mentaliteit:")
+    for idx, (speler, score) in enumerate(scores, 1):
+        print(f"{idx}. {speler}: {score}")
+
+def ranglijst_techniek(report_db):
+    scores = []
+    for speler, rapporten in report_db.items():
+        for rapport in rapporten:
+            if 'techniek' in rapport:
+                try:
+                    score = int(rapport["techniek"])
+                    scores.append((speler, score))
+                except ValueError:
+                    continue
+    scores.sort(key=lambda x: x[1], reverse=True)
+    print("Ranglijst techniek:")
+    for idx, (speler, score) in enumerate(scores, 1):
+        print(f"{idx}. {speler}: {score}")
 
