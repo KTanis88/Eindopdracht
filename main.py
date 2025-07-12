@@ -6,7 +6,7 @@ from roles import role_permissions, mag_toegang
 from players import add_player
 from scouting import add_scouting_report, view_scouting_reports
 from trainers import add_training_schedule, register_attendance
-from technical import add_material
+from technical import add_material, create_team_indeling, view_team_indelingen, export_teamindelingen_to_csv
 from trainingsschema.loader import get_schema_path, open_schema
 
 
@@ -14,6 +14,7 @@ from trainingsschema.loader import get_schema_path, open_schema
 report_db = load_data('rapporten.json')
 save_data(report_db, 'rapporten.json')
 
+teamindelingen_db = load_data('teamindelingen.json')
 users_db = load_users()
 players_db = load_data('players.json')
 teams_db = load_data('teams.json')
@@ -56,6 +57,25 @@ def gebruikersmenu(gebruiker, users_db) :
             add_material(materials_db)
         elif actie == "scoutingsverslagen":
            add_scouting_report(report_db)
+        elif actie == "teamindeling":
+            while True:
+                print("/nTeamindelingen-menu: ")
+                print("1. Nieuwe teamindeling aanmaken")
+                print("2. Teamindelingen bekijken")
+                print("3. Teamindelingen exporteren naar CSV")
+                print("0. Terug")
+                keuze = input("Maak een keuze: ")
+                if keuze == "1":
+                    create_team_indeling(teams_db, players_db, teamindelingen_db)
+                    save_data(teamindelingen_db, 'teamindelingen.json')
+                elif keuze == "2":
+                    view_team_indelingen(teamindelingen_db)
+                elif keuze == "3":
+                    export_teamindelingen_to_csv(teamindelingen_db)
+                elif keuze == "0":
+                    break
+                else:
+                    print("Ongeldige keuze.")
         elif actie == "import_sportslink":
             print("Start Sportslink synchronisatie...")
             sportslink_teams = fetch_teams()
@@ -125,6 +145,10 @@ def toon_menu(gebruiker):
     if "scoutingsverslag" in permissions.get("modules", []):
         menu.append(f"{nummer}. Scoutingsverslagen")
         mapping[str(nummer)] = "scoutingsverslagen"
+        nummer += 1
+    if "teamindeling" in permissions.get("modules", []):
+        menu.append(f"{nummer}. Teamindelingen beheren")
+        mapping[str(nummer)] = "teamindeling"
         nummer += 1
 
     menu.append(f"{nummer}. Importeer teams en spelers uit Sportslink")
