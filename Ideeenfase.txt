@@ -1,15 +1,82 @@
-Voor mijn eindopdracht in Progamming fundamentals ben ik tot het idee gekomen om een app te
-ontwikkelen waar de technische zaken, scouting en trainers binnen mijn voetbalclub vrc gebruik van kunnen maken.
-Eerst ben ik gaan nadenken wat er in de app moet komen en daarna hoe ik dit moet bouwen in pycharm.
-De app moet een beveiligde omgeving zijn ,omdat er teams en de daarbij horende spelersinfo worden gebruikt.
-De info hiervoor haal ik uit een api die ik via sportslink verkrijg. Vrc verleent mij hiervoor toestemming om een client id te ontvangen.
-De app moet als functionaliteit bevatten dat ik er een volledig scoutingsrapport op staat die ingevuld kan worden door alle gebruikers,
-Niet alle gebruikers mogen zien wat er ingevuld word. De gebruiker die het formulier invult kan het zien plus de tc en ho.
-Verder moet statistieken van de teams en hun spelers per wedstrijd/training ingevuld kunnen worden door de trainers en waarnodig aangevuld door de api van sportslink.
-De rapporten moeten downloadbaar zijn als excel-bestand.
-Ook wil ik de indelingen voor de teams voor het volgende jaar kunnen maken. Dit moet ook downloadbaar zijn als excel bestand.
-Er worden cijfers gegeven op basis van het scoutingssysteem. De app moet een automatische koppeling kunnen maken van de scores van alle spelers in een leeftijdsgroep.
-Die scores moeten aan elkaar gekoppeld worden en een soort ranglijst van gemaakt worden.
-Bijvoorbeeld: Als ik in de jo11 op zoek ben naar spelers met de kwaliteit mentaliteit, moet de app alle scores van de spelers bij het kopje mentaliteit kunnen koppelen
-en daaruit een ranglijst kunnen maken met alle spelers en hun scores van de beste naar de minst scorende op dat gebied.
+Ideeënfase- Eindopdracht App voor CTZ Voetbalclub VRC
 
+Voor mijn eindopdracht in het vak Programming Fundamentals heb ik het idee ontwikkeld om een applicatie te bouwen die specifiek gericht is op de technische staf, scouts en trainers binnen mijn voetbalclub VRC. Het doel van deze app is om een centrale, beveiligde digitale omgeving te creëren waarin alle belangrijke technische en scoutingsinformatie overzichtelijk beheerd kan worden. Dit moet het werk van de commissie technische zaken, trainers en scouts aanzienlijk vergemakkelijken en professionaliseren.
+
+In de beginfase ben ik eerst gaan nadenken over welke functionaliteiten essentieel zijn voor de app. Hierbij heb ik gekeken naar de dagelijkse werkzaamheden binnen de club en de problemen/uitdagingen die daar spelen. Zo kwam ik erachter dat er momenteel veel informatie verspreid is over verschillende Excel-bestanden, papieren formulieren en losse e-mails, wat leidt tot inefficiëntie en fouten. Daarom wil ik met deze app een oplossing bieden die deze informatie samenbrengt en veilig opslaat.
+
+Belangrijkste problemen:
+
+. Versnipperde informatie: Data over spelers, teams en wedstrijden is niet centraal     opgeslagen.
+. Privacy-risico’s: Persoonsgegevens en rapporten zijn onvoldoende beveiligd.
+. Handmatige invoer: Veel gegevens worden handmatig verwerkt, wat foutgevoelig is.
+. Beperkte toegankelijkheid:  Niet iedereen heeft toegang tot de juiste informatie, of juist te veel toegang.
+
+Doelstelling van de app:
+
+De app moet een aantal concrete doelen realiseren;
+
+. Centrale opslag van alle relevante informatie.
+. Beveiligde toegang met verschillende gebruikersrollen.
+. Automatische import van de data via de Sportslink API.
+. Gebruiksvriendelijke invoer en raadpleging van de scoutingsrapporten en statistieken.
+. Mogelijkheid tot het generen van rapporten en ranglijsten.
+. Exportfuncties naar Excel voor verdere analyse en rapportage.
+
+Functionele eisen:
+
+Beveiligde omgeving;
+Een belangrijk uitgangspunt is dat een beveiligde omgeving moet zijn. Dit is noodzakelijk om te voldoen aan de AVG en omdat er gevoelige informatie wordt verwerkt, zoals persoonsgegevens van spelers en vertrouwelijke scoutingsrapporten. Om deze reden heb ik besloten om een gebruikersauthenticatiesysteem te implementeren, waarbij de verschillende rollen worden toegekend, zoals trainer, scout en technisch coördinator. Hierdoor krijgt niet iedere gebruiker toegang tot alle informatie, maar alleen tot wat voor hem of haar relevant is.
+
+Data import via Sportslink API;
+De gegevens over teams en spelers worden automatisch opgehaald via een API van Sportslink. VRC heeft mij hiervoor toestemming gegeven en zijn bezig om mij een client ID te verstrekken, zodat ik deze data op een betrouwbare en actuele manier kan integreren in de app. Dit voorkomt handmatige invoer en vermindert de kans op fouten. De app moet in staat zijn:
+	. Teams en spelers automatisch te synchroniseren.
+	. Wedstrijdschema’s en uitslagen op te halen.
+	. Statistieken van spelers te importeren en te koppelen aan bestaande data.
+
+Scoutingsrapporten;
+Een van de kernfunctionaliteiten van de app is het kunnen invullen van volledige scoutingsrapporten. Deze rapporten kunnen door alle gebruikers worden ingevuld, maar de zichtbaarheid ervan is beperkt. Alleen de gebruiker die het rapport invult, de technisch coördinator(TC) en het hoofd jeugdopleiding(HJO) mogen de ingevulde rapporten inzien. Dit waarborgt de privacy en vertrouwelijkheid van de informatie.
+
+Statistieken en Prestatieformulieren;
+Trainers moeten in staat zijn om statistieken per wedstrijd of training in te vullen. Deze statistieken kunnen indien nodig worden aangevuld met data uit de Sportslink API, zodat de informatie zo compleet mogelijk is. Dit helpt bij het monitoren van de prestaties van teams en individuele spelers. Denk aan:
+	. Beoordelingen van spelers per wedstrijd/training.
+	. Opmerkingen en observaties van trainers.
+	. Automatische koppeling met externe data.
+
+Exportmogelijkheden;
+De rapporten en statistieken moeten ook downloadbaar zijn als Excel-bestand, zodat ze eenvoudig gedeeld en geanalyseerd kunnen worden buiten de app om. Dit is belangrijk voor bijvoorbeeld vergaderingen of evaluaties. De exportfunctie moet gebruiksvriendelijk zijn en zorgen voor een overzichtelijke presentatie van de data.
+
+Teamindelingen en Seizoens-voorbereiding;
+Verder wil ik dat de app de mogelijkheid biedt om de teamindelingen voor het volgende seizoen te maken en deze ook te kunnen exporteren als Excel-bestand. Dit is een wens vanuit de club om het proces van teamindeling te stroomlijnen en te professionaliseren. De app moet ondersteunen bij:
+	. Het samenstellen van nieuwe teams op basis van prestaties en beoordelingen.
+	. Het bewaren en delen van teamindelingen met betrokkenen.
+
+Automatische Ranglijsten;
+Een geavanceerde functie die ik wil implementeren is het automatisch koppelen van scores van spelers binnen bijvoorbeeld een leeftijdsgroep. Op basis van het scoutingssysteem worden cijfers toegekend aan verschillende kwaliteiten, zoals mentaliteit, techniek en inzet. De app moet deze scores kunnen verzamelen, koppelen en verwerken tot ranglijsten. Bijvoorbeeld, als ik in de JO11 op zoek ben naar spelers met een hoge score op mentaliteit, moet de app alle scores op dat gebied kunnen verzamelen en een ranglijst genereren van beste tot minst scorende spelers. Dit helpt bij het objectief vergelijken van spelers en het maken van weloverwogen beslissingen.
+
+Technische aanpak:
+
+Structuur van de App;
+De app zal modulair worden opgebouwd, met aparte modules voor;
+
+. Gebruikersbeheer en authenticatie.
+. Data-import en synchronisatie met Sportslink.
+. Invoer en beheer van scoutingsrapporten.
+. Statistieken en prestatieformulieren.
+. Exportfuncties naar Excel.
+. Teamindelingen en ranglijsten.
+
+Hierdoor blijft de code overzichtelijk en is het eenvoudig om later extra functionaliteiten toe te voegen.
+
+Verwachte Uitdagingen en Oplossingen:
+
+. Privacy en beveiliging: Door het gebruik van rollen en toegangsrechten beperk ik de toegang tot gevoelige informatie.
+. Synchronisatieproblemen: Door logs en duidelijke foutmeldingen in te bouwen, kan ik eventuele synchronisatieproblemen snel opsporen en oplossen.
+. Gebruikersvriendelijkheid: Door regelmatig feedback te vragen aan de uiteindelijke gebruikers, kan ik de interface en workflow optimaliseren.
+
+Terugblik en Vooruitblik:
+
+Tot slot verwacht ik dat het ontwikkelen van deze app niet alleen een technisch project is, maar ook een leerproces waarin ik inzicht krijg in softwareontwikkeling binnen een echte clubomgeving. Ik zal tijdens het project regelmatig feedback vragen aan gebruikers binnen de club om ervoor te zorgen dat de app aansluit bij hun behoeften en gebruiksvriendelijk is.
+
+Met deze app hoop ik een waardevolle bijdrage te leveren aan de professionalisering van de technische organisatie binnen VRC en een solide basis te leggen voor verdere digitale ontwikkelingen. Het project biedt mij de kans om niet alleen mijn programmeervaardigheden te verbeteren, maar ook om te leren hoe je software ontwikkelt die daadwerkelijk gebruikt wordt door een doelgroep in de praktijk.
+
+Deze ideeënfase beschrijft mijn motivatie, analyse, doelen, functionele eisen, technische aanpak en verwachtingen. Hiermee is de basis gelegd voor een gestructureerde en doordachte ontwikkeling van de voetbalclub-app.
